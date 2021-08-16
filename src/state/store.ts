@@ -1,7 +1,8 @@
-import {createStoreHook} from "react-redux";
+import {applyMiddleware, createStore} from "redux";
 import {todolistsReducer} from "./todolists-reducer";
 import {tasksReducer} from "./tasks-reducer";
 import {combineReducers} from "redux";
+import thunk from 'redux-thunk'
 
 
 
@@ -12,15 +13,18 @@ const rootReducer = combineReducers({
 })
 
 
-
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
-
-export const store = createStoreHook(rootReducer as any);
 
 // @ts-ignore
 window.store = store;
 
 
 export default rootReducer;
+
+
+
+
+

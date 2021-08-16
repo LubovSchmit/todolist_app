@@ -11,7 +11,7 @@ import {store} from "./state/store";
 
 
 ReactDOM.render(
-    // @ts-ignore
+
     <Provider store={store}>
         <AppWithRedux/>
     </Provider>,
