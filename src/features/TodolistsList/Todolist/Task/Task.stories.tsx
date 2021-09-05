@@ -4,7 +4,7 @@ import React from "react";
 import {Meta, Story} from "@storybook/react/types-6-0";
 // @ts-ignore
 import {action} from '@storybook/addon-actions';
-import {TaskPriorities, TaskStatuses } from "./api/tasks-api";
+import {TaskPriorities, TaskStatuses } from "../../../../api/tasks-api";
 
 
 export default {

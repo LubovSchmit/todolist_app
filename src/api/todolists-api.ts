@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 
-
 export const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
@@ -11,22 +10,7 @@ export const instance = axios.create({
 
 })
 
-export type CommonResponseType<T = {}> = {
-    resultCode: number
-    messages: Array<string>
-    fieldsErrors: Array<string>
-    data: T
-}
-
-
-export type TodoType = {
-    id: string;
-    title: string;
-    addedDate: string;
-    order: number;
-}
-
-
+//API
 export const todolistApi = {
     getTodos() {
         return instance.get<Array<TodoType>>('todo-lists')
@@ -40,6 +24,20 @@ export const todolistApi = {
     updateTodoTitle(todoId: string, title: string) {
         return instance.put<CommonResponseType>(`todo-lists/${todoId}`, {title})
     }
+}
+
+//Types
+export type CommonResponseType<T = {}> = {
+    resultCode: number
+    messages: Array<string>
+    fieldsErrors: Array<string>
+    data: T
+}
+export type TodoType = {
+    id: string;
+    title: string;
+    addedDate: string;
+    order: number;
 }
 
 

@@ -1,55 +1,7 @@
 import {instance} from "./todolists-api"
 
-export type CommonResponseTaskType<T = {}> = {
-    resultCode: number
-    messages: Array<string>
-    data: T
-}
 
-export enum TaskStatuses {
-    New,
-    InProgress,
-    Completed,
-    Draft
-}
-
-export enum TaskPriorities {
-    Low,
-    Middle,
-    High,
-    Urgently,
-    Later
-}
-
-export type TasksType = {
-    description: string;
-    title: string;
-    status: TaskStatuses;
-    priority: TaskPriorities;
-    startDate: string;
-    deadline: string;
-    id: any;
-    todoListId: string;
-    order: number;
-    addedDate: string;
-}
-
-export type GetTaskResponseTaskType = {
-    items: Array<TasksType>,
-    totalCount: number,
-    error: string
-}
-
-export  type UpdateTaskModelType = {
-    description: string;
-    title: string;
-    status: TaskStatuses,
-    priority: TaskPriorities,
-    startDate: string;
-    deadline: string;
-}
-
-
+//API
 export const taskApi = {
     getTasks(todolistId: string) {
 
@@ -67,6 +19,51 @@ export const taskApi = {
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
         return instance.put<CommonResponseTaskType<TasksType>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {model})
     }
+}
+
+//Types
+export type CommonResponseTaskType<T = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: T
+}
+export enum TaskStatuses {
+    New,
+    InProgress,
+    Completed,
+    Draft
+}
+export enum TaskPriorities {
+    Low,
+    Middle,
+    High,
+    Urgently,
+    Later
+}
+export type TasksType = {
+    description: string;
+    title: string;
+    status: TaskStatuses;
+    priority: TaskPriorities;
+    startDate: string;
+    deadline: string;
+    id: any;
+    todoListId: string;
+    order: number;
+    addedDate: string;
+}
+export type GetTaskResponseTaskType = {
+    items: Array<TasksType>,
+    totalCount: number,
+    error: string
+}
+export  type UpdateTaskModelType = {
+    description: string;
+    title: string;
+    status: TaskStatuses,
+    priority: TaskPriorities,
+    startDate: string;
+    deadline: string;
 }
 
 

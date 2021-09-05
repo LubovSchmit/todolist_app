@@ -6,14 +6,12 @@ import {AddItemForm, AddItemFormPropsType} from "./AddItemForm";
 import {action} from '@storybook/addon-actions';
 
 
-
 export default {
     title: 'Todolist/AddItemForm',
     component: AddItemForm,
     argTypes: {
-        onClick: {
-            description: 'Button inside form clicked'
-        }
+        onClick: {description: 'Button inside form clicked'},
+        disabled: {description: 'Button disabled'}
     },
 } as Meta;
 
@@ -24,4 +22,10 @@ const Template: Story<AddItemFormPropsType> = (args: AddItemFormPropsType) =>
 export const AddItemFormExample = Template.bind({});
 AddItemFormExample.args = {
     addItem: action('Button inside form clicked')
+}
+
+
+export const AddItemFormDisabledExample = Template.bind({});
+AddItemFormDisabledExample.args = {
+    addItem: action('Button disabled')
 }
