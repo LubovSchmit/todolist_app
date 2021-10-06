@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
     app: appReducer
 })
 
+
 const initialGlobalState: AppRootStateType = {
     todolists: [
         {id: "todolistId1", title: "What to learn", filter: "all", addedDate: '',
@@ -64,9 +65,13 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',}
         ]
     },
-    app:{
+    app: {
         error: null,
-        status: 'idle'
+        status: 'idle',
+        initialised: false
+    },
+    auth: {
+        isLoggedIn: false
     }
 };
 

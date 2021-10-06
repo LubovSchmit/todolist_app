@@ -1,5 +1,8 @@
 import React, {ChangeEvent, useState} from 'react';
 import {TextField} from "@material-ui/core";
+import { useSelector } from 'react-redux';
+import { RequestStatusType } from '../../app/app-reducer';
+import { AppRootStateType } from '../../app/store';
 
 export type EditableSpanPropsType = {
     title: string
@@ -10,6 +13,7 @@ export type EditableSpanPropsType = {
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
 
 let [editMode, setEditMode] = useState(false)
+
 let [title, setTitle] = useState('')
     const activateEditMode = () => {
     setEditMode(true)

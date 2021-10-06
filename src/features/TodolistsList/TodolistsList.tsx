@@ -15,6 +15,7 @@ import {TaskStatuses, TasksType} from '../../api/tasks-api';
 import {ToDoList} from './Todolist/ToDoList';
 import {addTaskTC, removeTaskTC, updateTaskTC} from './tasks-reducer';
 import {AppRootStateType} from '../../app/store';
+import {Redirect} from 'react-router-dom';
 
 export type TaskStateType = {
     [key: string]: Array<TasksType>
@@ -28,16 +29,19 @@ export type TodolistsListPropsType = {
 export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo = false}) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (demo) {
+        if (demo || !isLoggedIn) {
             return
         }
         dispatch(fetchTodolistsTC())
     }, [])
 
-    const removeTask = useCallback((todoListID: string, id: string) => {
+    const removeTask = useCallback(( id: string, todoListID: string) => {
         dispatch(removeTaskTC(todoListID, id))
     }, [dispatch])
 
@@ -64,19 +68,21 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo = false}) 
     }, [dispatch])
 
     const changeTodoListTitle = useCallback((id: string, title: string) => {
-        const thunk = changeTodolistTitleTC(id, title);
-        dispatch(thunk);
+        dispatch(changeTodolistTitleTC(id, title))
     }, [dispatch])
 
     const addTodoList = useCallback((title: string) => {
         dispatch(addTodolistsTC(title));
     }, [dispatch])
 
+    if (!isLoggedIn) {
+        return <Redirect to={'/login'}/>
+    }
 
     return (
         <>
             <Grid container style={{padding: '20px'}}>
-                <AddItemForm addItem={addTodoList} />
+                <AddItemForm addItem={addTodoList}/>
             </Grid>
             <Grid container spacing={3}>
                 {

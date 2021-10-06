@@ -1,6 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {IconButton, TextField} from "@material-ui/core";
 import {ControlPoint} from "@material-ui/icons";
+import { AppRootStateType } from '../../app/store';
+import { useSelector } from 'react-redux';
+import { RequestStatusType } from '../../app/app-reducer';
 
 export type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -11,7 +14,7 @@ export type AddItemFormPropsType = {
 export const AddItemForm = React.memo (function ({addItem, disabled=false}: AddItemFormPropsType) {
     const [title, setTitle] = useState('');
     const [error, setError] = useState<string | null>(null);
-
+    const status = useSelector<AppRootStateType, RequestStatusType>(state=> state.app.status)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
@@ -35,7 +38,7 @@ export const AddItemForm = React.memo (function ({addItem, disabled=false}: AddI
     return <div>
 
         <TextField
-            disabled = {disabled}
+            disabled={status === 'loading'}
             value={title}
                    variant={"outlined"}
                    label={'Type value'}

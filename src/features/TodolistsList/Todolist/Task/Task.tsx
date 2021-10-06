@@ -6,7 +6,7 @@ import {TaskStatuses, TasksType} from "../../../../api/tasks-api";
 
 
 export type TaskPropsType = {
-    removeTask: (todoListID: string, id: string) => void
+    removeTask: (id: string, todoListID: string) => void
     changeTaskStatus: (taskId: string, status: TaskStatuses, todoListID: string) => void
     changeTaskTitle: (taskId: string, newTitle: string, todoListID: string) => void
     task: TasksType
@@ -15,7 +15,9 @@ export type TaskPropsType = {
 
 
 export const Task = React.memo((props: TaskPropsType) => {
-    const onClickHandler = () => props.removeTask(props.task.id, props.todolistId)
+    const onClickHandler = () => {
+        props.removeTask(props.task.id, props.todolistId)
+    }
     const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
         props.changeTaskStatus(props.task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId);

@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {todolistApi, TodoType} from "../../api/todolists-api";
-import {RequestStatusType, setAppStatusAC, SetAppStatusActionType, setAppErrorAC} from "../../app/app-reducer";
+import {RequestStatusType, setAppStatusAC, SetAppStatusActionType, setAppErrorAC, SetAppErrorActionType} from "../../app/app-reducer";
+import { handleServerAppError } from "../../utils/error-utills";
 
 
 const initialState: Array<TodolistDomainType> = []
@@ -55,8 +56,12 @@ export const fetchTodolistsTC = () => {
         todolistApi.getTodos()
             .then((res) => {
                 dispatch(setTodolistAC(res.data))
+                dispatch(setAppStatusAC('succeeded'));
             })
-        dispatch(setAppStatusAC('succeeded'));
+            .catch(error => {
+                handleServerAppError(error, dispatch);
+            })
+
     }
 }
 export const removeTodolistsTC = (todolistId: string) => {
@@ -78,8 +83,8 @@ export const addTodolistsTC = (title: string) => {
         todolistApi.createTodo(title)
             .then((res) => {
                 dispatch(addTodolistAC(res.data.data.item))
+                dispatch(setAppStatusAC('succeeded'));
             })
-        dispatch(setAppStatusAC('succeeded'));
     }
 }
 export const changeTodolistTitleTC = (id: string, title: string) => {
@@ -109,4 +114,4 @@ export type TodolistDomainType = TodoType & {
     filter: FilterValuesType
     entityStatus: RequestStatusType
 }
-type ThunkDispatch = Dispatch<ActionsType | SetAppStatusActionType>
+type ThunkDispatch = Dispatch<ActionsType | SetAppStatusActionType | SetAppErrorActionType>

@@ -4,10 +4,12 @@ import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import {TaskStatuses, TasksType} from '../../../api/tasks-api';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {FilterValuesType, TodolistDomainType} from '../todolists-reducer';
 import {Task} from './Task/Task';
 import {fetchTasksTC} from '../tasks-reducer';
+import { AppRootStateType } from '../../../app/store';
+import { RequestStatusType } from '../../../app/app-reducer';
 
 
 type ToDoListPropsType = {
@@ -24,6 +26,7 @@ type ToDoListPropsType = {
 }
 
 export const ToDoList = React.memo(function ({demo = false, ...props}: ToDoListPropsType) {
+
 
     const dispatch = useDispatch();
 
@@ -74,11 +77,11 @@ export const ToDoList = React.memo(function ({demo = false, ...props}: ToDoListP
 
     return <div>
         <h3><EditableSpan title={props.todolist.title} onChange={changeTodoListTitle}/>
-            <IconButton aria-label="Delete" onClick={removeTodoList} disabled={props.todolist.entityStatus === 'loading'}>
+            <IconButton aria-label="Delete" onClick={removeTodoList}>
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
+        <AddItemForm addItem={addTask} />
 
         <div>
             {

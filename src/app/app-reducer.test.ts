@@ -6,7 +6,8 @@ beforeEach(() => {
 
     startState = {
         error: null,
-        status: 'idle'
+        status: 'idle',
+        initialised: false
     }
 })
 
