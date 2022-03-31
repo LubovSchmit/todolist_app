@@ -10,7 +10,7 @@ import {initialisedAppTC, RequestStatusType} from './app-reducer';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
-import { logoutTC } from '../features/Login/auth-reducer';
+import {logoutTC} from '../features/Login/auth-reducer';
 
 type PropsType = {
     demo?: boolean
@@ -48,9 +48,13 @@ export function App({demo = false}: PropsType) {
                             <Menu/>
                         </IconButton>
                         <Typography variant='h6'>
-                            News
+                            My Todolists
                         </Typography>
-                        {isLoggedIn && <Button color='inherit' onClick={logoutHandler}>Log out</Button>}
+                        <ul>
+                            <li>
+                                {isLoggedIn && <Button color='inherit' onClick={logoutHandler}>Log out</Button>}
+                            </li>
+                        </ul>
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                 </AppBar>
