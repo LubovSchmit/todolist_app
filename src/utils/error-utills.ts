@@ -1,10 +1,10 @@
 import { Dispatch } from "react";
 import { CommonResponseTaskType } from "../api/tasks-api";
-import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, RequestStatusType, SetAppStatusActionType} from "../app/app-reducer";
+import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../app/app-reducer";
 
 export const handleServerAppError = <T>(data:CommonResponseTaskType<T>, dispatch: Dispatch<SetAppErrorActionType|SetAppStatusActionType>) => {
 
-    if (data.messages.length) {
+    if (data?.messages?.length) {
         dispatch(setAppErrorAC(data.messages[0]))
     } else {
         dispatch(setAppErrorAC('Some error occurred'))
