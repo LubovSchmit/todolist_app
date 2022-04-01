@@ -49,7 +49,7 @@ export const logoutTC= () => (dispatch: Dispatch<ActionsType | SetAppStatusActio
     authApi.logout()
         .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(true))
+                dispatch(setIsLoggedInAC(false))
                 dispatch(setAppStatusAC('succeeded'));
             } else {
                 handleServerAppError(res.data, dispatch);

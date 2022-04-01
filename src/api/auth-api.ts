@@ -12,7 +12,7 @@ export const authApi = {
         return instance.get<CommonResponseType<{id: number, email: string, login:string}>>('auth/me')
     },
     logout(){
-        return instance.delete<CommonResponseType<{userId?:number}>>('auth/me')
+        return instance.delete<CommonResponseType<{userId?:number}>>('auth/login')
     }
 }
 
