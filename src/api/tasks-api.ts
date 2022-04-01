@@ -18,7 +18,7 @@ export const taskApi = {
         return instance.put<CommonResponseTaskType<{ item: TasksType }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
     },*/
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
-        return instance.put<CommonResponseTaskType<TasksType>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {model})
+        return instance.put<CommonResponseTaskType<TasksType>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
     }
 }
 

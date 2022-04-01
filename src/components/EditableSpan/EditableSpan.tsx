@@ -1,8 +1,6 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {TextField} from "@material-ui/core";
-import { useSelector } from 'react-redux';
-import { RequestStatusType } from '../../app/app-reducer';
-import { AppRootStateType } from '../../app/store';
+
 
 export type EditableSpanPropsType = {
     title: string
@@ -20,6 +18,11 @@ let [title, setTitle] = useState('')
         setTitle(props.title)
     }
 
+    const onKeyPressActivateViewMode = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            setEditMode(false)
+            props.onChange(title)}
+    }
 
     const activateViewMode = () => {
     setEditMode(false)
@@ -27,6 +30,11 @@ let [title, setTitle] = useState('')
     }
     const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>)  =>setTitle(e.currentTarget.value )
     return editMode
-        ? <TextField value={title} onChange={onChangeTitleHandler} onBlur={activateViewMode} autoFocus/>
+        ? <TextField value={title}
+                     onChange={onChangeTitleHandler}
+                     autoFocus
+                     onBlur={activateViewMode}
+                     onKeyPress={onKeyPressActivateViewMode}
+                     />
         : <span onDoubleClick={activateEditMode}>{props.title}</span>
 })
