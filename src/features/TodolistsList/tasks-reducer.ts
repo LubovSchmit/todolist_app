@@ -3,7 +3,7 @@ import {taskApi, TaskPriorities, TaskStatuses, TasksType, UpdateTaskModelType} f
 import {Dispatch} from "redux";
 import {AppRootStateType} from "./../../app/store";
 import {TaskStateType} from "./TodolistsList";
-import {setAppErrorAC, setAppStatusAC, SetAppStatusActionType, SetAppErrorActionType} from "../../app/app-reducer";
+import {setAppStatusAC, SetAppStatusActionType, SetAppErrorActionType} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utills";
 
 
@@ -73,7 +73,7 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsT
         })
 }
 
-export const removeTaskTC = (todolistID: string, id: string) => (dispatch: Dispatch<ActionsType>) => {
+export const removeTaskTC = (todolistID: string, id: string) => (dispatch: Dispatch<ActionsType| SetAppErrorActionType>) => {
 
     taskApi.deleteTask(todolistID, id)
         .then(res => {
@@ -119,8 +119,8 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
         taskApi.updateTask(todolistId, taskId, apiModel)
             .then(res => {
                 if (res.data.resultCode === 0) {
-                    const action = updateTaskAC(taskId, domainModel, todolistId);
-                    dispatch(action)
+
+                    dispatch(updateTaskAC(taskId, domainModel, todolistId))
                 } else {
                     handleServerAppError(res.data, dispatch);
                 }
